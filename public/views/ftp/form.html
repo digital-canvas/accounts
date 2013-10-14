@@ -1,0 +1,76 @@
+<div class="page-header">
+  <h1>{{domain.name|capitalize}}</h1>
+</div>
+
+<form name="formFTP" class="form-horizontal col-xs-12" ng-submit="saveFTP()" role="form" novalidate>
+  <fieldset>
+    <legend>{{legend}}</legend>
+    <div class="form-group">
+      <label for="form-domain-name" class="control-label">Domain</label>
+      <div class="">
+        <span class="form-control uneditable-input" id="form-domain-name">{{domain.name}}<span ng-show="domain.domain"> ({{domain.domain}})</span></span>
+        <p class="help-block">The domain the FTP credentials are for.</p>
+      </div>
+    </div>
+    <div class="form-group" ng-class="{error: formFTP.hostname.$invalid}">
+      <label for="form-ftp-hostname" class="control-label">Hostname</label>
+      <div class="">
+        <input type="text" class="form-control" id="form-ftp-hostname" name="hostname" ng-model="ftp.hostname" ng-maxlength="255" placeholder="example.com" />
+        <div class="help-inline control-error" ng-show="formFTP.hostname.$invalid">
+          <i class="icon-exclamation-sign"></i>
+          <span ng-show="formFTP.hostname.$error.maxlength">Hostname must not be more than 255 characters.</span>
+        </div>
+        <p class="help-block">The hostname of the FTP server.</p>
+      </div>
+    </div>
+    <div class="form-group" ng-class="{error: formFTP.username.$invalid}">
+      <label for="form-ftp-username" class="control-label">Username</label>
+      <div class="">
+        <input type="text" class="form-control" id="form-ftp-username" name="username" ng-model="ftp.username" ng-maxlength="255" />
+        <div class="help-inline control-error" ng-show="formFTP.usertname.$invalid">
+          <i class="icon-exclamation-sign"></i>
+          <span ng-show="formFTP.username.$error.maxlength">Username must not be more than 255 characters.</span>
+        </div>
+        <p class="help-block">The FTP username.</p>
+      </div>
+    </div>
+    <div class="form-group" ng-class="{error: formFTP.password.$invalid}">
+      <label for="form-ftp-password" class="control-label">Password</label>
+      <div class="">
+        <input type="text" class="form-control" id="form-ftp-password" name="password" ng-model="ftp.password" ng-maxlength="255" />
+        <div class="help-inline control-error" ng-show="formFTP.password.$invalid">
+          <i class="icon-exclamation-sign"></i>
+          <span ng-show="formFTP.password.$error.maxlength">Password must not be more than 255 characters.</span>
+        </div>
+        <p class="help-block">The FTP password.</p>
+      </div>
+    </div>
+    <div class="form-group" ng-class="{error: formFTP.remote_folder.$invalid}">
+      <label for="form-ftp-remote_folder" class="control-label">Server Path</label>
+      <div class="">
+        <input type="text" class="form-control" id="form-ftp-remote_folder" name="remote_folder" ng-model="ftp.remote_folder" ng-maxlength="255" placeholder="/public_html" />
+        <div class="help-inline control-error" ng-show="formFTP.remote_folder.$invalid">
+          <i class="icon-exclamation-sign"></i>
+          <span ng-show="formFTP.remote_folder.$error.maxlength">Path must not be more than 255 characters.</span>
+        </div>
+        <p class="help-block">The path of the site on the remote server.</p>
+      </div>
+    </div>
+    <div class="form-group" ng-class="{error: formFTP.local_folder.$invalid}">
+      <label for="form-ftp-local_folder" class="control-label">Local Path</label>
+      <div class="">
+        <input type="text" class="form-control" id="form-ftp-local_folder" name="local_folder" ng-model="ftp.local_folder" ng-maxlength="255" />
+        <div class="help-inline control-error" ng-show="formFTP.local_folder.$invalid">
+          <i class="icon-exclamation-sign"></i>
+          <span ng-show="formFTP.local_folder.$error.maxlength">Path must not be more than 255 characters.</span>
+        </div>
+        <p class="help-block">The path of the site on the local machine.</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary" value="Save" />
+      <a class="btn" ng-href="/domain/details/{{domain.id}}">Cancel</a>
+    </div>
+  </fieldset>
+</form>
+

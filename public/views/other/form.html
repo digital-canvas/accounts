@@ -1,0 +1,58 @@
+<div class="page-header">
+  <h1>{{domain.name|capitalize}}</h1>
+</div>
+
+  <form name="formData" ng-submit="saveData()" class="form-horizontal col-xs-12" novalidate>
+    <fieldset>
+      <legend>{{legend}}</legend>
+      <div class="form-group">
+        <label for="form-domain-name" class="control-label">Domain</label>
+        <div class="">
+          <span class="form-control uneditable-input" id="form-domain-name">{{domain.name}}<span ng-show="domain.domain"> ({{domain.domain}})</span></span>
+          <p class="help-block">The domain the data is for.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{error: formData.name.$invalid}">
+        <label for="form-data-group" class="control-label">Group</label>
+        <div class="">
+          <input type="text" class="form-control" id="form-data-group" name="group" ng-model="data.group" typeahead="group for group in groups | filter:$viewValue | limitTo:8" autocomplete="off" ng-maxlength="255" required />
+          <div class="help-inline control-error" ng-show="formData.group.$invalid">
+            <i class="icon-exclamation-sign"></i>
+            <span ng-show="formData.group.$error.required">Group is required.</span>
+            <span ng-show="formData.group.$error.maxlength">Group must not be more than 255 characters.</span>
+            <span ng-show="formData.group.$error.ftp">Group cannot be &lquot;ftp&rquot;.</span>
+            <span ng-show="formData.group.$error.database">Group cannot begin with &lquot;database&rquot;.</span>
+          </div>
+          <p class="help-block">The group the data is part of.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{error: formData.name.$invalid}">
+        <label for="form-data-name" class="control-label">Name</label>
+        <div class="">
+          <input type="text" class="form-control" id="form-data-name" name="name" ng-model="data.name" ng-maxlength="255" required ng-change="resetValidation('name')" />
+          <div class="help-inline control-error" ng-show="formData.name.$invalid">
+            <i class="icon-exclamation-sign"></i>
+            <span ng-show="formData.name.$error.required">Name is required.</span>
+            <span ng-show="formData.name.$error.maxlength">Name must not be more than 255 characters.</span>
+            <span ng-show="formData.name.$error.unique">Data with this name already exists in group.</span>
+          </div>
+          <p class="help-block">The name of the data.</p>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{error: formData.value.$invalid}">
+        <label for="form-data-value" class="control-label">Value</label>
+        <div class="">
+          <input type="text" class="form-control" id="form-data-value" name="value" ng-model="data.value" ng-maxlength="255" />
+          <div class="help-inline control-error" ng-show="formData.value.$invalid">
+            <i class="icon-exclamation-sign"></i>
+            <span ng-show="formData.value.$error.maxlength">Value must not be more than 255 characters.</span>
+          </div>
+          <p class="help-block">The data value.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Save" />
+        <a class="btn" ng-href="/domain/details/{{domain.id}}">Cancel</a>
+      </div>
+    </fieldset>
+  </form>

@@ -1,0 +1,46 @@
+<div class="page-header">
+  <h1>{{domain.name|capitalize}}</h1>
+</div>
+<div class="alert alert-block alert-danger">
+  <h4 class="alert-heading">Warning!</h4>
+  This will delete the domain and all data associated with it.<br>
+  This action cannot be undone.
+</div>
+
+
+  <form class="form-horizontal col-xs-12" ng-submit="deleteDomain()" role="form">
+    <fieldset>
+      <legend>Delete Domain</legend>
+      <div class="form-group">
+        <label for="form-domain-name" class="control-label">Name</label>
+        <div class="">
+          <span class="form-control uneditable-input" id="form-domain-name">{{domain.name}}</span>
+          <p class="help-block">The display name.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="form-domain-domain" class="control-label">Domain</label>
+        <div class="">
+          <span class="form-control uneditable-input" id="form-domain-domain">{{domain.domain}}</span>
+          <p class="help-block">The domain.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="form-domain-url" class="control-label">URL</label>
+        <div class="">
+          <span class="form-control uneditable-input" id="form-domain-url">{{domain.url}}</span>
+          <p class="help-block">The full url of the domain.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="form-domain-notes" class="control-label">Notes</label>
+        <div class="">
+          <div class="form-control uneditable-input" style="height:150px;" id="form-domain-notes">{{domain.notes}}</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-danger" value="Delete" />
+        <a class="btn" ng-href="/domain/details/{{domain.id}}">Cancel</a>
+      </div>
+    </fieldset>
+  </form>

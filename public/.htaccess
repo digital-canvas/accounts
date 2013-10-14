@@ -1,0 +1,26 @@
+
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+#
+# # if your app is in a subfolder:
+# RewriteBase /
+#
+# Let existing files / directories through
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+
+# Rewrite API Routes
+RewriteRule ^api$ api.php [NC,L]
+RewriteRule ^api/(.*)$ api.php [NC,L]
+
+# Send the rest to the bootstrap
+RewriteRule ^.*$ index.html [NC,L]
+
+# # with QSA flag (query string append),
+# # forces the rewrite engine to append a query string part of the
+# # substitution string to the existing string, instead of replacing it.
+</IfModule>

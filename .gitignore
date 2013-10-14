@@ -1,0 +1,44 @@
+/system/vendor
+/system/data/logs
+!/system/data/logs/README.md
+/system/config.local.php
+/system/data/database
+!/system/data/database/README.md
+/build
+composer.phar
+phpunit.phar
+phpinfo.php
+.sass-cache
+/public/vendor
+!/public/vendor/bootstrap-custom
+
+# OS Files
+Thumbs.db
+.DS_Store
+.DS_STORE
+*~
+
+# IDE Files
+.buildpath
+.externalToolBuilders
+.project
+.settings
+nbproject
+*.LCK
+*.kpf
+*.komodoproject
+.tmp_*
+_notes
+.idea
+.cache
+*.sublime-project
+*.sublime-workspace
+crash.txt
+
+# Source Control
+.svn
+.hg
+.hgignore
+.hgexternals
+CVS
+.bzr

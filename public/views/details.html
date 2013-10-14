@@ -1,0 +1,175 @@
+<div class="page-header">
+  <h1>{{domain.name|capitalize}}</h1>
+</div>
+
+<div class="row">
+  <div class="col-lg-4 col-md-5 col-sm-6">
+    <table id="domain-details" class="table table-bordered">
+      <tr>
+        <th>Name</th>
+        <td>{{domain.name}}</td>
+      </tr>
+        <tr ng-show="domain.domain">
+          <th>Domain</th>
+          <td>{{domain.domain}}</td>
+        </tr>
+        <tr ng-show="domain.url">
+          <th>URL</th>
+          <td>{{domain.url}}</td>
+        </tr>
+        <tr ng-show="domain.notes">
+          <td colspan="2">{{domain.notes}}</td>
+        </tr>
+      <tr>
+        <td colspan="2" class="text-center">
+          <a class="btn btn-info" ng-href="/domain/edit/{{domain.id}}">
+            <span class="glyphicon glyphglyphicon glyphicon-pencil"></span>
+            Edit
+          </a>
+          <a class="btn btn-danger" ng-href="/domain/delete/{{domain.id}}">
+            <span class="glyphicon glyphglyphicon glyphicon-trash"></span>
+            Delete
+          </a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<h2>FTP Info</h2>
+
+<div id="domain-ftp" class="row">
+    <div class="col-md-4 col-sm-6">
+      <div class="thumbnail">
+        <table class="table">
+          <thead>
+            <tr>
+              <th colspan="2" class="text-center">FTP</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr ng-show="domain.ftp.hostname">
+            <th>Hostname</th>
+            <td>{{domain.ftp.hostname}}</td>
+          </tr>
+          <tr ng-show="domain.ftp.username">
+            <th>Username</th>
+            <td>{{domain.ftp.username}}</td>
+          </tr>
+          <tr ng-show="domain.ftp.password">
+            <th>Password</th>
+            <td>{{domain.ftp.password}}</td>
+          </tr>
+          <tr ng-show="domain.ftp.remote_folder">
+            <th>Remote Path</th>
+            <td>{{domain.ftp.remote_folder}}</td>
+          </tr>
+          <tr ng-show="domain.ftp.local_folder">
+            <th>Local Path</th>
+            <td>{{domain.ftp.local_folder}}</td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td colspan="2" class="text-center">
+              <a class="btn btn-info" ng-href="/ftp/{{domain.id}}">
+                <span class="glyphicon glyphicon-pencil"></span>
+                Edit
+              </a>
+            </td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+</div>
+
+<h2>Database Credentials</h2>
+<nav class="well">
+  <a class="btn btn-success" ng-href="/database/{{domain.id}}/add">
+    <i class="glyphicon glyphicon-plus"></i>
+    Add new Database
+  </a>
+</nav>
+<div id="domain-database" class="row" ng-show="domain.database.length > 0">
+  <div class="data-container col-lg-4 col-sm-6" ng-repeat="row in domain.database">
+    <div class="thumbnail">
+      <table class="table">
+        <thead>
+        <tr>
+          <th colspan="2" class="text-center">Database Credentials</th>
+        </tr>
+        </thead>
+        <tr>
+          <th>DB Type</th>
+          <td>{{row.dbtype|uppercase}}</td>
+        </tr>
+        <tr>
+          <th>Hostname</th>
+          <td>{{row.Hostname}}</td>
+        </tr>
+        <tr>
+          <th>Username</th>
+          <td>{{row.Username}}</td>
+        </tr>
+        <tr>
+          <th>Password</th>
+          <td>{{row.Password}}</td>
+        </tr>
+        <tr>
+          <th>Database</th>
+          <td>{{row.Database}}</td>
+        </tr>
+        <tr>
+          <th>URL</th>
+          <td>{{row.URL}}</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="text-center">
+            <a class="btn btn-info" ng-href="/database/{{domain.id}}/{{row.id}}/edit">
+              <span class="glyphicon glyphicon-pencil"></span>
+              Edit
+            </a>
+            <a class="btn btn-danger" ng-href="/database/{{domain.id}}/{{row.id}}/delete">
+              <span class="glyphicon glyphicon-trash"></span>
+              Delete
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<h2>Other Data</h2>
+<nav class="well">
+  <a class="btn btn-success" ng-href="/other/{{domain.id}}/add">
+    <i class="glyphicon glyphicon-plus"></i>
+    Add new Data
+  </a>
+</nav>
+<div id="domain-other" class="row" ng-show="domain.other.length > 0">
+  <div class="data-container col-lg-4 col-sm-6" ng-repeat="row in domain.other">
+    <div class="thumbnail">
+      <table class="table">
+        <thead>
+        <tr>
+          <th colspan="2" class="text-center">{{row.group|capitalize}}</th>
+        </tr>
+        </thead>
+          <tr ng-repeat="data in row.data">
+            <th>{{data.name|capitalize}}</th>
+            <td>{{data.value}}</td>
+            <td>
+              <a class="btn btn-info btn-xs" ng-href="/other/{{domain.id}}/{{data.id}}/edit">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </a>
+              <a class="btn btn-danger btn-xs" ng-href="/other/{{domain.id}}/{{data.id}}/delete">
+                <span class="glyphicon glyphicon-trash"></span>
+              </a>
+            </td>
+          </tr>
+      </table>
+    </div>
+  </div>
+</div>

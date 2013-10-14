@@ -1,0 +1,57 @@
+
+$icon-font-path: "../../vendor/bootstrap-sass/fonts/";
+
+// Imports
+@import "../../vendor/bootstrap-sass/lib/bootstrap";
+@import "../../vendor/bootstrap-sass/lib/theme";
+
+// Variables
+
+// Layout
+@media (min-width: $screen-sm) {
+  body { padding-top: 70px; }
+}
+@media (max-width: $screen-xs-max) {
+  body { padding-top: 142px; }
+
+}
+
+// Styles
+.nav a, .pagination a, .pager a, .carousel a { cursor: pointer; }
+.form-horizontal input + .help-block,
+.form-horizontal textarea + .help-block,
+.form-horizontal .uneditable-input + .help-block{
+  margin:5px 0 0 0;
+}
+.thumbnail > .table{
+  margin:0;
+}
+#main-footer{
+  padding-bottom: 17px;
+  padding-top: 1em;
+  margin: 18px 0;
+  border-top: 1px solid #EEE;
+}
+.control-error{
+    color: #FF0000;
+}
+.control-label.required:before{
+  color: #FF0000;
+  font-weight: bold;
+  content: "* ";
+}
+.flash-messages {
+  margin:10px 0;
+}
+
+.search-form{
+  margin-bottom:15px;
+}
+
+.capitalize{
+  text-transform:capitalize;
+}
+
+.data-container{
+  margin-bottom: 20px;
+}

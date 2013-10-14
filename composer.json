@@ -1,0 +1,24 @@
+{
+    "name": "digital-canvas/accounts",
+    "description": "Digital Canvas Accounts",
+    "require": {
+        "slim/slim": "2.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathan Bernardi",
+            "email": "jonathan@digitalcanvas.com"
+        }
+    ],
+    "autoload": {
+        "classmap": ["system/library/"]
+    },
+    "config": {
+        "preferred-install":"dist",
+        "vendor-dir": "system/vendor",
+        "bin-dir": "bin"
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}

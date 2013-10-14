@@ -1,0 +1,46 @@
+<div class="hidden-xs row search-form" role="form">
+    <div class="form-group">
+        <div class="col-sm-6 col-md-4 col-lg-2">
+          <input class="form-control" type="search" name="s" ng-model="search.text" ng-change="doSearch()" placeholder="Search" autofocus="autofocus" />
+        </div>
+      </div>
+</div>
+
+
+  <nav class="well">
+    <a class="btn btn-success" ng-href="/domain/add">
+      <span class="glyphicon glyphicon-plus"></span>
+      Add new Domain
+    </a>
+  </nav>
+
+
+
+  <table class="table table-bordered table-striped" ng-show="domains.length > 0">
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Name</th>
+        <th>Domain</th>
+        <th class="hidden-xs">Url</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="domain in domains">
+          <td>
+            <a class="btn btn-info" ng-href="/domain/details/{{domain.id}}">
+              <span class="glyphicon glyphicon-info-sign"></span> Details
+            </a>
+          </td>
+          <td>{{domain.name}}</td>
+          <td>{{domain.domain}}</td>
+          <td class="hidden-xs">{{domain.url}}</td>
+        </tr>
+    </tbody>
+  </table>
+  <div ng-hide="domains.length > 0">There are no matching domains.</div>
+  <ul class="pager" ng-show="search.page > 1 || search.next">
+    <li class="previous" ng-show="search.page > 1"><a ng-click="previous()">Previous</a></li>
+    <li class="next" ng-show="search.next"><a ng-click="next()">Next</a></li>
+  </ul>
+

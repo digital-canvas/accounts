@@ -1,0 +1,46 @@
+<div class="page-header">
+  <h1>{{domain.name}}</h1>
+</div>
+<div class="alert alert-block alert-danger">
+  <h4 class="alert-heading">Warning!</h4>
+  This will delete data row.<br>
+  This action cannot be undone.
+</div>
+
+  <form ng-submit="deleteData()" class="form-horizontal col-xs-12" role="form">
+    <fieldset>
+      <legend>Delete Other Data</legend>
+      <div class="form-group">
+        <label for="form-domain-name" class="control-label">Domain</label>
+        <div class="">
+          <span class="form-control uneditable-input" id="form-domain-name">{{domain.name}}<span ng-show="domain.domain"> ({{domain.domain}})</span></span>
+          <p class="help-block">The domain the data is for.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="form-data-group" class="control-label">Group</label>
+        <div class="">
+          <span class="form-control uneditable-input" id="form-data-group">{{data.group|capitalize}}</span>
+          <p class="help-block">The group the data is part of.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="form-data-name" class="control-label">Name</label>
+        <div class="">
+          <span class="form-control uneditable-input" id="form-data-name">{{data.name|capitalize}}</span>
+          <p class="help-block">The name of the data.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="form-data-value" class="control-label">Value</label>
+        <div class="">
+          <span class="form-control uneditable-input" id="form-data-value">{{data.value}}</span>
+          <p class="help-block">The data value.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn btn-danger" value="Delete" />
+        <a class="btn" ng-href="/domain/details/{{domain.id}}">Cancel</a>
+      </div>
+    </fieldset>
+  </form>

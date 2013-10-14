@@ -1,0 +1,50 @@
+<form name="formDomain" class="form-horizontal col-xs-12" novalidate ng-submit="saveDomain()" role="form">
+  <fieldset>
+    <legend>{{legend}}</legend>
+    <div class="form-group" ng-class="{error: formDomain.name.$invalid}">
+      <label for="form-domain-name" class="control-label required">Name</label>
+      <div class="">
+        <input type="text" class="form-control" id="form-domain-name" name="name" ng-model="domain.name" required ng-maxlength="255" ng-change="resetValidation('name')">
+        <div class="help-inline control-error" ng-show="formDomain.name.$invalid">
+          <i class="icon-exclamation-sign"></i>
+          <span ng-show="formDomain.name.$error.required">Name is required.</span>
+          <span ng-show="formDomain.name.$error.maxlength">Name must not be more than 255 characters.</span>
+          <span ng-show="formDomain.name.$error.unique">Domain with this name already exists.</span>
+        </div>
+        <p class="help-block">The name of the domain.</p>
+      </div>
+    </div>
+    <div class="form-group" ng-class="{error: formDomain.domain.$invalid}">
+      <label for="form-domain-domain" class="control-label">Domain</label>
+      <div class="">
+        <input type="text" class="form-control" id="form-domain-domain" name="domain" ng-model="domain.domain" placeholder="example.com" ng-maxlength="255">
+        <div class="help-inline control-error" ng-show="formDomain.domain.$invalid">
+          <i class="icon-exclamation-sign"></i>
+          <span ng-show="formDomain.domain.$error.maxlength">domain domain must not be more than 255 characters.</span>
+        </div>
+        <p class="help-block">The domain domain.</p>
+      </div>
+    </div>
+    <div class="form-group" ng-class="{error: formDomain.url.$invalid}">
+      <label for="form-domain-url" class="control-label">Site URL</label>
+      <div class="">
+        <input type="text" class="form-control" id="form-domain-url" name="url" ng-model="domain.url" placeholder="http://www.example.com" ng-maxlength="255">
+        <div class="help-inline control-error" ng-show="formDomain.url.$invalid">
+          <i class="icon-exclamation-sign"></i>
+          <span ng-show="formDomain.url.$error.maxlength">domain URL must not be more than 255 characters.</span>
+        </div>
+        <p class="help-block">The full url of the domain.</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="form-domain-notes" class="control-label">Notes</label>
+      <div class="">
+        <textarea class="form-control" rows="5" id="form-domain-notes" name="notes" ng-model="domain.notes"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary" value="Save" ng-class="{disabled: formDomain.$invalid}" />
+      <a class="btn" ng-href="{{back_url}}">Cancel</a>
+    </div>
+  </fieldset>
+</form>
