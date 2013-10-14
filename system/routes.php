@@ -7,6 +7,9 @@ $app->group('/api', function () use ($app) {
     // List Actions
     $app->get('/', 'Api\\Controller\\Index::listAction');
 
+    // List Actions
+    $app->get('/auth', 'Api\\Controller\\Index::authAction');
+
     //////////////////////
     // Domain Methods  //
     //////////////////////

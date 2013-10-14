@@ -18,7 +18,18 @@ class Index
         $app = Slim::getInstance();
         $response = $app->response;
         $response->headers->set('Content-Type', 'application/json');
-        $response->setBody(json_encode(array('success' => true, 'methods' => array('api/domain'))));
+        $response->setBody(json_encode(array('success' => true, 'methods' => array('api/domain','api/auth'))));
         return $response;
     }
+
+    public static function authAction()
+    {
+        $app = Slim::getInstance();
+        $response = $app->response;
+        $response->headers->set('Content-Type', 'application/json');
+        $response->status(204);
+        $response->setBody(json_encode(array('success' => true)));
+        return $response;
+    }
+
 }
