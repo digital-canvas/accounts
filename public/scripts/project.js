@@ -18,7 +18,10 @@ app.config(function ($routeProvider, $locationProvider) {
         when('/other/:domain/:id/edit', {controller: "EditDataCtrl", templateUrl: '/views/other/form.html'}).
         when('/other/:domain/:id/delete', {controller: "DeleteDataCtrl", templateUrl: '/views/other/delete.html'}).
 
-        otherwise({redirectTo: '/'});
+        when('/access-denied', {controller: "AccessDeniedCtrl", templateUrl: '/views/access-denied.html'}).
+        when('/not-found', {controller: "NotFoundCtrl", templateUrl: '/views/not-found.html'}).
+
+        otherwise({redirectTo: '/not-found'});
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix = '!';
 });
@@ -63,11 +66,43 @@ app.factory('Database', function ($resource) {
     return $resource('/api/database/:domain/:id', {domain: '@domain', id: '@id'}, {update: {method: 'PUT'}});
 });
 
+/**
+ * Auth Checker
+ */
+app.factory('AuthChecker', function ($http, $location) {
+    var $location;
+    return function(){
+        $http({method: 'GET', url: '/api/auth'}).success(function (data, status) {
+            if(status != 204){
+                $location.path('/access-denied').replace();
+            }
+        }).error(function(data, status){
+            $location.path('/access-denied').replace();
+        });
+    }
+});
+
+/**
+ * 404 Page
+ */
+app.controller('NotFoundCtrl', function($scope){
+
+});
+
+/**
+ * Access denied page
+ */
+app.controller('AccessDeniedCtrl', function($scope){
+
+});
+
+
 
 /**
  * List Domains
  */
-app.controller("ListCtrl", function ($scope, $resource, Domain, Search) {
+app.controller("ListCtrl", function ($scope, $resource, Domain, Search, AuthChecker) {
+    AuthChecker();
     $scope.search = Search;
     $scope.loadData = function () {
         var offset = ($scope.search.page - 1) * $scope.search.limit;
@@ -105,7 +140,8 @@ app.controller("ListCtrl", function ($scope, $resource, Domain, Search) {
 /**
  * Domain Search
  */
-app.controller("SearchCtrl", function ($scope, Search, $location) {
+app.controller("SearchCtrl", function ($scope, Search, $location, AuthChecker) {
+    AuthChecker();
     $scope.search = Search;
     $scope.globalSearch = '';
     $scope.searchDomains = function () {
@@ -121,14 +157,16 @@ app.controller("SearchCtrl", function ($scope, Search, $location) {
  * Domain Detail Page
  * Show lists of child data
  */
-app.controller("DetailsCtrl", function ($scope, $resource, $routeParams, Domain) {
+app.controller("DetailsCtrl", function ($scope, $resource, $routeParams, Domain, AuthChecker) {
+    AuthChecker();
     $scope.domain = Domain.get({id: $routeParams.id});
 });
 
 /**
  * Add domain form
  */
-app.controller("AddDomainCtrl", function ($scope, $resource, Domain, $location, $routeParams) {
+app.controller("AddDomainCtrl", function ($scope, $resource, Domain, $location, $routeParams, AuthChecker) {
+    AuthChecker();
     $scope.legend = "Add Domain";
     $scope.back_url = "/";
     $scope.domain = new Domain({});
@@ -158,7 +196,8 @@ app.controller("AddDomainCtrl", function ($scope, $resource, Domain, $location, 
 /**
  * Update domain form
  */
-app.controller("EditDomainCtrl", function ($scope, $resource, $routeParams, Domain, $location) {
+app.controller("EditDomainCtrl", function ($scope, $resource, $routeParams, Domain, $location, AuthChecker) {
+    AuthChecker();
     $scope.legend = "Edit Domain";
     $scope.back_url = "/domain/details/" + $routeParams.id;
     $scope.domain = Domain.get({id: $routeParams.id});
@@ -188,7 +227,8 @@ app.controller("EditDomainCtrl", function ($scope, $resource, $routeParams, Doma
 /**
  * Delete a domain
  */
-app.controller("DeleteDomainCtrl", function ($scope, $resource, $routeParams, Domain, $location) {
+app.controller("DeleteDomainCtrl", function ($scope, $resource, $routeParams, Domain, $location, AuthChecker) {
+    AuthChecker();
     $scope.domain = Domain.get({id: $routeParams.id});
     $scope.deleteDomain = function () {
         $scope.domain.$delete(function () {
@@ -200,7 +240,8 @@ app.controller("DeleteDomainCtrl", function ($scope, $resource, $routeParams, Do
 /**
  * Update FTP credentials form
  */
-app.controller("EditFTPCtrl", function ($scope, $resource, $routeParams, Domain, FTP, $location) {
+app.controller("EditFTPCtrl", function ($scope, $resource, $routeParams, Domain, FTP, $location, AuthChecker) {
+    AuthChecker();
     $scope.legend = "Update FTP Credentials";
     $scope.back_url = "/domain/details/" + $routeParams.domain;
     $scope.domain = Domain.get({id: $routeParams.id});
@@ -226,7 +267,8 @@ app.controller("EditFTPCtrl", function ($scope, $resource, $routeParams, Domain,
 /**
  * Add Database login form
  */
-app.controller("AddDatabaseCtrl", function ($scope, $resource, $routeParams, Domain, Database, $location) {
+app.controller("AddDatabaseCtrl", function ($scope, $resource, $routeParams, Domain, Database, $location, AuthChecker) {
+    AuthChecker();
     $scope.legend = "Add Database Credentials";
     $scope.back_url = "/domain/" + $routeParams.domain;
     $scope.domain = Domain.get({id: $routeParams.domain});
@@ -261,7 +303,8 @@ app.controller("AddDatabaseCtrl", function ($scope, $resource, $routeParams, Dom
 /**
  * Update database login form
  */
-app.controller("EditDatabaseCtrl", function ($scope, $resource, $routeParams, Domain, Database, $location) {
+app.controller("EditDatabaseCtrl", function ($scope, $resource, $routeParams, Domain, Database, $location, AuthChecker) {
+    AuthChecker();
     $scope.legend = "Update Database Login Credentials";
     $scope.back_url = "/domain/details/" + $routeParams.domain;
     $scope.domain = Domain.get({id: $routeParams.domain});
@@ -296,7 +339,8 @@ app.controller("EditDatabaseCtrl", function ($scope, $resource, $routeParams, Do
 /**
  * Delete database login
  */
-app.controller("DeleteDatabaseCtrl", function ($scope, $resource, $routeParams, Domain, Database, $location) {
+app.controller("DeleteDatabaseCtrl", function ($scope, $resource, $routeParams, Domain, Database, $location, AuthChecker) {
+    AuthChecker();
     $scope.domain = Domain.get({id: $routeParams.domain});
     $scope.database = Database.get({id: $routeParams.id, domain: $routeParams.domain});
     $scope.deleteDatabase = function () {
@@ -309,7 +353,8 @@ app.controller("DeleteDatabaseCtrl", function ($scope, $resource, $routeParams, 
 /**
  * Add other data
  */
-app.controller("AddDataCtrl", function ($scope, $resource, $routeParams, Domain, Data, $location, $http) {
+app.controller("AddDataCtrl", function ($scope, $resource, $routeParams, Domain, Data, $location, $http, AuthChecker) {
+    AuthChecker();
     $scope.legend = "Add Other Data";
     $scope.back_url = "/domain/" + $routeParams.domain;
     $scope.domain = Domain.get({id: $routeParams.domain});
@@ -343,7 +388,8 @@ app.controller("AddDataCtrl", function ($scope, $resource, $routeParams, Domain,
 /**
  * Update other data
  */
-app.controller("EditDataCtrl", function ($scope, $resource, $routeParams, Domain, Data, $location, $http) {
+app.controller("EditDataCtrl", function ($scope, $resource, $routeParams, Domain, Data, $location, $http, AuthChecker) {
+    AuthChecker();
     $scope.legend = "Update Data Row";
     $scope.back_url = "/domain/details/" + $routeParams.domain;
     $scope.domain = Domain.get({id: $routeParams.domain});
@@ -377,7 +423,8 @@ app.controller("EditDataCtrl", function ($scope, $resource, $routeParams, Domain
 /**
  * Delete other data
  */
-app.controller("DeleteDataCtrl", function ($scope, $resource, $routeParams, Domain, Data, $location) {
+app.controller("DeleteDataCtrl", function ($scope, $resource, $routeParams, Domain, Data, $location, AuthChecker) {
+    AuthChecker();
     $scope.domain = Domain.get({id: $routeParams.domain});
     $scope.data = Data.get({id: $routeParams.id, domain: $routeParams.domain});
     $scope.deleteData = function () {
