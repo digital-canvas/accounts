@@ -5,7 +5,7 @@ if (!defined('WEBROOT')) {
 }
 
 // Init autoloader
-require '../system/application.php';
+require dirname(__DIR__).'/system/application.php';
 // Prepare app
 $app = new Slim\Slim(array(
     'mode' => SERVER_MODE,

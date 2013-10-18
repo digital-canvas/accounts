@@ -59,11 +59,11 @@ if (SERVER_MODE == 'test') {
     Model\BaseModel::setCredentials(
         array(
              'phptype' => 'sqlite',
-             'database' => SYSTEM . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'password.sqlite'
+             'database' => SYSTEM . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'passwords.db3'
         )
     );
     if (!file_exists(
-        SYSTEM . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'password.sqlite'
+        SYSTEM . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'passwords.db3'
     )
     ) {
         $dbh = Model\BaseModel::getConnection();
